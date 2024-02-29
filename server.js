@@ -60,7 +60,7 @@ app.use('/api/seed-data', async (req, res) => {
     }
 })
 
-app.use(verifyJWT)
+// app.use(verifyJWT)
 require('./app/routes/index.js')(app)
 
 
