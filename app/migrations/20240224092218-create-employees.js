@@ -9,11 +9,18 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      role_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'master_roles',
+          key: 'id'
+        }
+      },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(64)
       },
       username: {
-        type: Sequelize.STRING(64),
+        type: Sequelize.STRING(32),
         unique: true,
       },
       phone_number: Sequelize.STRING(20),

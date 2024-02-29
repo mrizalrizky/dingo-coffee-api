@@ -13,8 +13,8 @@ if (config.use_env_variable) {
 
 db.rolesDB = require('../models/master_roles')(sequelize, Sequelize)
 db.employeesDB = require('./employees')(sequelize, Sequelize)
-db.productsDB = require('./master_products')(sequelize, Sequelize)
-db.promoDB = require('./promotion_packages')(sequelize, Sequelize)
+db.productsDB = require('./products')(sequelize, Sequelize)
+db.promoDB = require('./master_promotions')(sequelize, Sequelize)
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {

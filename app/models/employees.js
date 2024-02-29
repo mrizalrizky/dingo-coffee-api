@@ -14,9 +14,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   employees.init({
-    name: DataTypes.STRING,
+    name: DataTypes.STRING(64),
     username: {
-      type: DataTypes.STRING(64),
+      type: DataTypes.STRING(32),
       unique: true,
     },
     phone_number: DataTypes.STRING(20),
