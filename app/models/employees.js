@@ -10,11 +10,20 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      this.belongsTo(models.masterGroups, {
+        foreignKey: 'group_id'
+      })
     }
   }
   employees.init({
     name: DataTypes.STRING(64),
+    group_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'master_groups',
+        key: 'id'
+      }
+    },
     username: {
       type: DataTypes.STRING(32),
       unique: true,

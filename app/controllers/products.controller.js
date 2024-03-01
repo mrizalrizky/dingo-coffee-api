@@ -17,7 +17,23 @@ const getAllProducts = async (req, res) => {
     }
 }
 
+const getProductByName = async (req, res) => {
+    try {
+        const data = await productsRepo.findOneByName('test')
+
+        const successMsg = {
+            "indonesian": "Berhasil mengambil data produk",
+            "english": "Product data fetched successfully"
+        }
+
+        res.status(200).send(service.jsonSuccess(200, successMsg, data))
+    } catch (error) {
+        service.throwError(res, error)
+    }
+}
+
 const createProduct = async (req, res) => {
+    const tr = await db.sequelize.transaction()
     try {
         const { product_name, product_description, product_price, product_category } = req.body
 
@@ -49,13 +65,17 @@ const createProduct = async (req, res) => {
             "english": "Product created successfully"
         }
 
+        await tr.commit()
+
         res.status(200).send(service.jsonSuccess(200, successMsg, dataToDisplay))
     } catch (error) {
         service.throwError(res, error)
+        await tr.rollback()
     }
 }
 
 module.exports = {
     getAllProducts,
+    getProductByName,
     createProduct
 }

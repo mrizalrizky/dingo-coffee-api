@@ -9,10 +9,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      role_id: {
+      group_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'master_roles',
+          model: 'master_groups',
           key: 'id'
         }
       },

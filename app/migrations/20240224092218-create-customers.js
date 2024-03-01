@@ -9,13 +9,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      role_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'master_roles',
-          key: 'id'
-        }
-      },
       name: {
         type: Sequelize.STRING(64)
       },
@@ -28,11 +21,21 @@ module.exports = {
         type: Sequelize.STRING(64),
         unique: true
       },
-      password: Sequelize.STRING,
-      active_flag: Sequelize.BOOLEAN,
-      refresh_token: Sequelize.STRING,
-      points_balance: Sequelize9.INTEGER,
-      qr_code_data: Sequelize.STRING(64),
+      password: {
+        type: Sequelize.STRING,
+      },
+      active_flag: {
+        type: Sequelize.BOOLEAN
+      },
+      refresh_token: {
+        type: Sequelize.STRING
+      },
+      points_balance: {
+        type: Sequelize.INTEGER
+      },
+      qr_code_data: {
+        type: Sequelize.STRING(64)
+      },
       created_at: {
         type: Sequelize.DATE
       },

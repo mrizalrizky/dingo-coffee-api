@@ -14,13 +14,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   customers.init({
-    role_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'master_roles',
-        key: 'id',
-      }
-    },
     name: DataTypes.STRING(64),
     username: {
       type: DataTypes.STRING(32),

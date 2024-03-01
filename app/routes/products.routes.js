@@ -3,6 +3,7 @@ module.exports = (app) => {
     const productsController = require('../controllers/products.controller')
 
     router.get('/', productsController.getAllProducts)
+    router.get('/:name', productsController.getProductByName)
     router.post('/', productsController.createProduct)
 
     app.use('/api/products', router)

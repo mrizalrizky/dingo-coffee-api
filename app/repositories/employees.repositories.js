@@ -1,20 +1,54 @@
 function employeesRepository(db) {
     const getAllEmployees = () => {
-      return db.employeesDB.findAll({});
+      return db.employees.findAll({
+        attributes: [
+          'name',
+          'username',
+          'phone_number',
+          'email',
+          [db.sequelize.fn('COALESCE', db.sequelize.col('master_group.name'), '-'), 'employee_group'],
+        ],
+        include: [
+          {
+            model: db.masterGroups,
+            attributes: [
+                'id',
+                'name'
+            ],
+            include: [
+              {
+                model: db.employeeGroupRoles,
+                attributes: [
+                    'group_role_id',
+                ],
+                include: [
+                  {
+                    model: db.groupRoles,
+                    attributes: [
+                        'role_name',
+                        'description'
+                    ],
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      });
     };
     
     const findOneByIdentifier = (identifier) => {
-      return db.employeesDB.findOne({
+      return db.employees.findOne({
         where: identifier,
       })
     }
 
     const createEmployee = (data, transaction) => {
-      return db.employeesDB.create(data, transaction)
+      return db.employees.create(data, transaction)
     }
     
     const updateEmployeeData = (username, dataToUpdate, transaction) => {
-      return db.employeesDB.update(dataToUpdate, {
+      return db.employees.update(dataToUpdate, {
         where: {
           username
         }

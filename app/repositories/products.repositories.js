@@ -1,18 +1,28 @@
 function productsRepository(db) {
     const getAllProducts = () => {
-      return db.productsDB.findAll({});
-    };
+      return db.products.findAll({
+        include: [
+            {
+                model: db.productCategories
+            }
+        ]})
+    }
     
     const findOneByName = (name) => {
-        return db.productsDB.findOne({
+        return db.products.findOne({
             where: {
                 name
-            }
+            },
+            include: [
+                {
+                    model: db.productCategories,
+                }
+            ]
         })
     }
 
     const createProduct = (data, transaction) => {
-        return db.productsDB.create(data, transaction)
+        return db.products.create(data, transaction)
     }
   
     return {

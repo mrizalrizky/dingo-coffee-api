@@ -32,23 +32,52 @@ app.get('/api/health-check', (req, res) => {
 app.use('/api/seed-data', async (req, res) => {
     const tr = await db.sequelize.transaction()
     try {
-        const rolesData = await db.rolesDB.bulkCreate([
+        const rolesData = await db.masterGroups.bulkCreate([
             { name: "Staff" },
             { name: "Supervisor" },
             { name: "Manager" },
             { name: "Admin" }
         ])
 
-        const productsData = await db.productsDB.bulkCreate([
+        const productCategory = await db.productCategories.bulkCreate([
+            { name: 'Food' },
+            { name: 'Latte' }
+        ])
+
+        const productsData = await db.products.bulkCreate([
             {
                 name: "Coca Cola",
                 description: "Deskripsi coca cola",
-                price: 10000
+                price: 10000,
+                product_category_id: 2
             },
             {
                 name: "Es teh manis",
                 description: "Deskripsi es teh manis",
-                price: 7000
+                price: 7000,
+                product_category_id: 1
+            }
+        ])
+
+        const groupRoles = await db.groupRoles.bulkCreate([
+            {
+                role_name: 'VIEW_TRANSACTIONS',
+                description: 'This role is to view transactions'
+            },
+            {
+                role_name: 'VIEW_EMPLOYEES',
+                description: 'This role is to view employees'
+            }
+        ])
+
+        const employeeGroupRoles = await db.employeeGroupRoles.bulkCreate([
+            {
+                group_id: 1,
+                group_role_id: 1
+            },
+            {
+                group_id: 1,
+                group_role_id: 2
             }
         ])
 

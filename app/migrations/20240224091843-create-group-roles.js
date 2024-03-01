@@ -2,31 +2,18 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('customer_addresses', {
+    await queryInterface.createTable('group_roles', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      customer_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'customers',
-          key: 'id',
-        }
-      },
-      address_details: {
-        type: Sequelize.STRING
-      },
-      location_details: {
+      role_name: {
         type: Sequelize.STRING(128)
       },
-      recipient_name: {
-        type: Sequelize.STRING(64)
-      },
-      recipient_phone: {
-        type: Sequelize.STRING(20)
+      description: {
+        type: Sequelize.STRING
       },
       created_at: {
         allowNull: false,
@@ -39,6 +26,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('customer_addresses');
+    await queryInterface.dropTable('group_roles');
   }
 };

@@ -41,12 +41,12 @@ const handleLogin = async (req, res) => {
         }
         const accessToken = jwt.sign(
             { username: userExist.username },
-            process.env.BPOS_ACCESS_TOKEN_SECRET,
+            process.env.DPOS_ACCESS_TOKEN_SECRET,
             { expiresIn: '5m'})
 
         const refreshToken = jwt.sign(
             { username: userExist.username },
-            process.env.BPOS_REFRESH_TOKEN_SECRET,
+            process.env.DPOS_REFRESH_TOKEN_SECRET,
             { expiresIn: '60m'})
 
         // Update refresh token
@@ -191,7 +191,7 @@ const handleRefreshToken = async (req, res) => {
             throw errResponse
         }
 
-        jwt.verify(refreshToken, process.env.BPOS_REFRESH_TOKEN_SECRET, (err, decoded) => {
+        jwt.verify(refreshToken, process.env.DPOS_REFRESH_TOKEN_SECRET, (err, decoded) => {
             if(err || userExist.username !== decoded.username) {
                 errResponse.code = 403,
                 errResponse.message = {
@@ -203,7 +203,7 @@ const handleRefreshToken = async (req, res) => {
 
             const accessToken = jwt.sign(
                 { username: decoded.username },
-                process.env.BPOS_ACCESS_TOKEN_SECRET,
+                process.env.DPOS_ACCESS_TOKEN_SECRET,
                 { expiresIn: '5m' }
             )
 

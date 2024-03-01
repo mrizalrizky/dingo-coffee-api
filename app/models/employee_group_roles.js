@@ -3,32 +3,37 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class customer_addresses extends Model {
+  class employee_group_roles extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      this.belongsTo(models.groupRoles, {
+        foreignKey: 'group_role_id'
+      })
     }
   }
-  customer_addresses.init({
-    customer_id: {
+  employee_group_roles.init({
+    group_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'customers',
+        model: 'master_groups',
         key: 'id'
       }
     },
-    address_details: DataTypes.STRING,
-    location_details: DataTypes.STRING(128),
-    recipient_name: DataTypes.STRING(64),
-    recipient_phone: DataTypes.STRING(20),
+    group_role_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'group_roles',
+        key: 'id'
+      }
+    }
   }, {
     sequelize,
-    modelName: 'customer_addresses',
+    modelName: 'employee_group_roles',
     underscored: true,
   });
-  return customer_addresses;
+  return employee_group_roles;
 };
