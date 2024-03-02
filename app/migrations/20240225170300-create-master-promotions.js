@@ -16,13 +16,22 @@ module.exports = {
         type: Sequelize.STRING
       },
       voucher_code: {
-        type: Sequelize.STRING(32)
+        type: Sequelize.STRING(32),
+        allowNull: true
       },
       voucher_valid_start: {
         type: Sequelize.DATE
       },
       voucher_valid_end: {
         type: Sequelize.DATE
+      },
+      discount_fee: {
+        type: Sequelize.INTEGER,
+        allowNull: true
+      },
+      discount_percentage: {
+        type: Sequelize.INTEGER,
+        allowNull: true
       },
       customer_voucher_flag: {
         type: Sequelize.BOOLEAN

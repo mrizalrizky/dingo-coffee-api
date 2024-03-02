@@ -16,7 +16,7 @@ const verifyJWT = (req, res, next) => {
         }
 
         const token = authHeader.split(' ')[1]
-        jwt.verify(token, process.env.BPOS_ACCESS_TOKEN_SECRET, (err, decoded) => {
+        jwt.verify(token, process.env.DPOS_ACCESS_TOKEN_SECRET, (err, decoded) => {
             if(err) {
                 errResponse.code = 403,
                 errResponse.message = {

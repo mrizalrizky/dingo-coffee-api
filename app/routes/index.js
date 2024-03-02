@@ -4,4 +4,5 @@ module.exports = (app) => {
     require('./promotions.routes')(app)
     require('./payment.routes')(app)
     require('./branches.routes')(app)
+    require('./customers.routes')(app)
 }

@@ -14,10 +14,30 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   master_promotions.init({
-    package_name: DataTypes.STRING(64),
-    promo_code: DataTypes.STRING(32),
-    table_discount_percentage: DataTypes.INTEGER,
-    active_flag: DataTypes.BOOLEAN
+    promo_name: DataTypes.STRING(64),
+    promo_description: DataTypes.STRING,
+    voucher_code: {
+      type: DataTypes.STRING(32),
+      allowNull: true
+    },
+    discount_fee: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    discount_percentage: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    voucher_valid_start: DataTypes.DATE,
+    voucher_valid_end: DataTypes.DATE,
+    customer_voucher_flag: DataTypes.BOOLEAN,
+    merchant_voucher_flag: DataTypes.BOOLEAN,
+    dine_in_voucher_flag: DataTypes.BOOLEAN,
+    delivery_voucher_flag: DataTypes.BOOLEAN,
+    pickup_voucher_flag: DataTypes.BOOLEAN,
+    can_combine_promo_flag: DataTypes.BOOLEAN,
+    active_flag: DataTypes.BOOLEAN,
+    show_flag: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'master_promotions',

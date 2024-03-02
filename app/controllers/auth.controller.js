@@ -208,8 +208,8 @@ const handleRefreshToken = async (req, res) => {
             )
 
             const successMsg = {
-                "indonesian": "Login berhasil",
-                "english": "Login successful",
+                "indonesian": "Refresh token berhasil digenerate",
+                "english": "Refresh token generated",
             }
             res.status(200).send(service.jsonSuccess(200, successMsg, { access_token: accessToken}))
         })

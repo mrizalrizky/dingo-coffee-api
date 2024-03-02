@@ -11,8 +11,8 @@ const getAllEmployees = async (req, res) => {
             username: employee.username,
             phone_number: employee.phone_number,
             email: employee.email,
-            employee_group: employee.master_group.name,
-            group_roles: employee.master_group.employee_group_roles.map(item => {
+            employee_group: employee?.master_group?.name,
+            group_roles: employee?.master_group?.employee_group_roles?.map(item => {
                 return item.group_role.role_name
             })
         }))
