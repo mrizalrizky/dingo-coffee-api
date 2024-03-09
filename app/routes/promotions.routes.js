@@ -3,6 +3,8 @@ module.exports = (app) => {
     const promoController = require('../controllers/promotions.controller')
 
     router.get('/', promoController.getAllPromo)
+    router.get('/customers', promoController.getCustomerVouchers)
+    router.post('/redeem', promoController.redeemVoucher)
 
-    app.use('/api/promotions', router)
+    app.use('/api/vouchers', router)
 }

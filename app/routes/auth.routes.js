@@ -1,11 +1,11 @@
 module.exports = (app) => {
-    const router = require('express').Router()
-    const authController = require('../controllers/auth.controller')
+  const router = require("express").Router();
+  const authController = require("../controllers/auth.controller");
 
-    router.post('/login', authController.handleLogin)
-    router.post('/register', authController.handleRegister)
-    router.post('/logout', authController.handleLogout)
-    router.get('/refresh-token', authController.handleRefreshToken)
+  router.post("/:type/login", authController.handleLogin);
+  router.post("/:type/logout", authController.handleLogout);
+  router.get("/:type/refresh-token", authController.handleRefreshToken);
+  router.post("/register", authController.handleRegister);
 
-    app.use('/api/auth', router)
-}
+  app.use("/api/auth", router);
+};

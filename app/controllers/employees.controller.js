@@ -1,6 +1,6 @@
 const db = require('../models/index')
 const employeesRepo = require('../repositories/employees.repositories')(db)
-const service = require('../services/messageHandler')
+const service = require('../utils/messageHandler')
 
 const getAllEmployees = async (req, res) => {
     try {
@@ -21,7 +21,7 @@ const getAllEmployees = async (req, res) => {
             "indonesian": "Berhasil mengambil data karyawan",
             "english": "Employee data fetched successfully"
         }
-        res.status(200).send(service.jsonSuccess(200, successMsg, dataToDisplay))
+        res.status(200).send(service.jsonSuccess(200, successMsg, data))
     } catch (error) {
         service.throwError(res, error)
     }

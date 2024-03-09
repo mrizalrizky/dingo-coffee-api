@@ -39,7 +39,42 @@ function employeesRepository(db) {
     
     const findOneByIdentifier = (identifier) => {
       return db.employees.findOne({
+        attributes: [
+          'id',
+          'name',
+          'username',
+          'password',
+          'phone_number',
+          'email',
+          // [db.sequelize.fn('COALESCE', db.sequelize.col('master_group.name'), '-'), 'employee_group'],
+        ],
         where: identifier,
+        include: [
+          {
+            model: db.masterGroups,
+            attributes: [
+                'id',
+                'name'
+            ],
+            include: [
+              {
+                model: db.employeeGroupRoles,
+                attributes: [
+                    'group_role_id',
+                ],
+                include: [
+                  {
+                    model: db.groupRoles,
+                    attributes: [
+                        'role_name',
+                        'description'
+                    ],
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       })
     }
 
@@ -47,7 +82,7 @@ function employeesRepository(db) {
       return db.employees.create(data, transaction)
     }
     
-    const updateEmployeeData = (username, dataToUpdate, transaction) => {
+    const updateDataByUsername = (username, dataToUpdate, transaction) => {
       return db.employees.update(dataToUpdate, {
         where: {
           username
@@ -59,7 +94,7 @@ function employeesRepository(db) {
       getAllEmployees,
       findOneByIdentifier,
       createEmployee,
-      updateEmployeeData,
+      updateDataByUsername,
     };
   }
   

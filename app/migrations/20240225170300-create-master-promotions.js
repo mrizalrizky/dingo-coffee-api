@@ -33,6 +33,13 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: true
       },
+      usage_count: {
+        type: Sequelize.INTEGER
+      },
+      minimum_points: {
+        type: Sequelize.INTEGER,
+        allowNull: true
+      },
       customer_voucher_flag: {
         type: Sequelize.BOOLEAN
       },
@@ -66,6 +73,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('promotion_packages');
+    await queryInterface.dropTable('master_promotions');
   }
 };

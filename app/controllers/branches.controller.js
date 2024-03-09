@@ -1,6 +1,6 @@
 const db = require('../models/index')
 const branchRepo = require('../repositories/branches.repositories')(db)
-const service = require('../services/messageHandler')
+const service = require('../utils/messageHandler')
 
 const getAllBranches = async (req, res) => {
     try {

@@ -16,11 +16,14 @@ db.groupRoles = require('./group_roles')(sequelize, Sequelize)
 db.employeeGroupRoles = require('./employee_group_roles')(sequelize, Sequelize)
 db.employees = require('./employees')(sequelize, Sequelize)
 db.customers = require('./customers')(sequelize, Sequelize)
+db.customerFavorites = require("./customer_favorites")(sequelize, Sequelize)
 db.products = require('./products')(sequelize, Sequelize)
 db.productCategories = require('./product_categories')(sequelize, Sequelize)
 db.masterPromotions = require('./master_promotions')(sequelize, Sequelize)
 db.masterBranches = require('./master_branches')(sequelize, Sequelize)
 db.branchProducts = require('./branch_products')(sequelize, Sequelize)
+db.transactions = require('./transactions')(sequelize, Sequelize)
+db.orderStatus = require('./order_statuses')(sequelize, Sequelize)
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {

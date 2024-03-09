@@ -30,6 +30,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     voucher_valid_start: DataTypes.DATE,
     voucher_valid_end: DataTypes.DATE,
+    usage_count: DataTypes.INTEGER,
+    minimum_points: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
     customer_voucher_flag: DataTypes.BOOLEAN,
     merchant_voucher_flag: DataTypes.BOOLEAN,
     dine_in_voucher_flag: DataTypes.BOOLEAN,

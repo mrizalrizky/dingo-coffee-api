@@ -1,6 +1,6 @@
 const db = require('../models/index')
 const customerRepo = require('../repositories/customers.repositories')(db)
-const service = require('../services/messageHandler')
+const service = require('../utils/messageHandler')
 
 const getAllCustomers = async (req, res) => {
     try {
