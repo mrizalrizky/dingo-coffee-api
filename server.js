@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const bcrypt = require("bcrypt");
 const verifyJWT = require("./app/middlewares/verifyJwt.middleware.js");
 const logger = require("./app/utils/logger.js");
 const service = require("./app/utils/messageHandler.js");
@@ -10,6 +11,7 @@ const corsOptions = require("./app/config/corsOptions.config.js");
 const db = require("./app/models/index.js");
 const rateLimiter = require("./app/middlewares/rateLimiter.middleware.js");
 require("dotenv").config();
+const masterGroupConstant = require("./app/constants/masterGroup.constant");
 app.use(logger.printLog());
 
 app.use(credentials);
@@ -36,6 +38,27 @@ app.get("/api/health-check", (req, res) => {
       english: `API running on port ${process.env.PORT} is healthy`,
     })
   );
+});
+
+app.post("/employee-register", async (req, res) => {
+  const tr = await db.sequelize.transaction();
+  try {
+    const employee = await db.employees.create(
+      {
+        group_id: masterGroupConstant.BARISTA,
+        name: "Andi",
+        username: "andi.barista",
+        password: await bcrypt.hash("barista123", 10),
+        active_flag: true,
+      },
+      { transaction: tr }
+    );
+    console.log("EMPLOYEE", employee);
+    await tr.commit();
+  } catch (error) {
+    await tr.rollback();
+    service.throwError(res, error);
+  }
 });
 
 app.use("/api/seed-data", async (req, res) => {
@@ -99,6 +122,15 @@ app.use("/api/seed-data", async (req, res) => {
       },
     ]);
 
+    const masterBranch = await db.masterBranches.bulkCreate([
+      {
+        name: "Dingo UII",
+        address: "Kampus UII",
+        latitude: "-7.6868199",
+        longitude: "110.4183811",
+      },
+    ]);
+
     await tr.commit();
     res.status(200).send("Data seeding succeed");
   } catch (error) {
@@ -107,7 +139,7 @@ app.use("/api/seed-data", async (req, res) => {
   }
 });
 
-app.use(verifyJWT);
+// app.use(verifyJWT);
 require("./app/routes/index.js")(app);
 
 app.listen(process.env.PORT, () => {
