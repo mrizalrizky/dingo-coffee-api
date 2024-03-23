@@ -20,16 +20,10 @@ function transactionsRepository(db) {
     );
   };
 
-  const findOneByStatus = (status) => {
-    return db.transaction.findOne({
-      where: {
-        status_name: status,
-      },
-    });
-  };
-
   const findAllByStatus = (statusId) => {
     return db.transactions.findAll({
+      raw: true,
+      nested: true,
       attributes: [
         "invoice_number",
         "invoice_amount",
@@ -37,7 +31,7 @@ function transactionsRepository(db) {
         "branch_id",
         "customer_id",
         "employee_id",
-        "order_status_id",
+        [db.Sequelize.col(`order_status.status_name`), "order_status"],
       ],
       where: {
         order_status_id: statusId,
@@ -45,11 +39,8 @@ function transactionsRepository(db) {
       include: [
         {
           model: db.orderStatus,
-          // attributes: [],
+          attributes: [],
         },
-        {
-          model: db.
-        }
       ],
     });
   };
@@ -69,7 +60,6 @@ function transactionsRepository(db) {
   return {
     getAllTransactions,
     createTransaction,
-    findOneByStatus,
     findAllByStatus,
     updateStatusByInvoiceNumber,
   };
